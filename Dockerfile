@@ -46,6 +46,9 @@ RUN add-apt-repository ppa:lyx-devel/release && \
 #LibreOffice
 RUN apt install -y libreoffice
 
+#VLC
+RUN apt install -y vlc
+
 
 # Remove light-locker to prevent screen lock
 ARG TURBOVNC_VERSION=2.2.6
