@@ -1,4 +1,5 @@
-# Jupyter Remote Desktop Proxy
+# JupyterDesktop Bundle Image
+
 Images Bundled software
 Jupyter Image
     R
