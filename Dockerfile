@@ -1,6 +1,16 @@
 # R and scientific python 
 FROM jupyter/datascience-notebook:latest
 
+# Fix DL4006
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+# Install Tensorflow
+RUN mamba install --quiet --yes \
+    'tensorflow' && \
+    mamba clean --all -f -y && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
+
 USER root
 
 RUN apt-get -y update \
@@ -12,9 +22,7 @@ RUN apt-get -y update \
    xfce4-settings \
    xorg \
    xubuntu-icon-theme 
-# JDK and JRE
-RUN apt-get install -y default-jre \
-   default-jdk 
+
 #C and C++
 RUN apt-get install -y gcc \
    g++ \
@@ -23,6 +31,13 @@ RUN apt-get install -y gcc \
 #Fortran
 RUN apt-get install -y gfortran 
 
+#Scala
+RUN apt-get -y install scala
+
+#Git
+RUN apt install -y git-all
+# Notapadqq
+RUN apt install -y notepadqq
 #Atom
 RUN apt install -y software-properties-common apt-transport-https wget \
    && wget -q https://packagecloud.io/AtomEditor/atom/gpgkey -O- | sudo apt-key add - \
@@ -67,3 +82,4 @@ RUN fix-permissions /opt/install
 USER $NB_USER
 RUN cd /opt/install && \
    conda env update -n base --file environment.yml
+
