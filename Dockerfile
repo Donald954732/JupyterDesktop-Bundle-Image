@@ -1,16 +1,6 @@
 # R and scientific python 
 FROM jupyter/datascience-notebook:latest
 
-# Fix DL4006
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
-# Install Tensorflow
-RUN mamba install --quiet --yes \
-    'tensorflow' && \
-    mamba clean --all -f -y && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
-
 USER root
 
 RUN apt-get -y update \
