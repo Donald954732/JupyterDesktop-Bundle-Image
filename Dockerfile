@@ -1,15 +1,5 @@
 # R and scientific python 
-FROM jupyter/datascience-notebook:latest
-
-# Fix DL4006
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
-# Install Tensorflow
-RUN mamba install --quiet --yes \
-    'tensorflow' && \
-    mamba clean --all -f -y && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
+FROM harbor.stfc.ac.uk/stfc-cloud/gpu-jupyter-nogui-no-password:latest
 
 USER root
 
